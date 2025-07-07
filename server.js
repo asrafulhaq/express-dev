@@ -1,8 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import colors from "colors";
-import devRouter from "./routes/dev.js";
-import studentRouter from "./routes/student.js";
+import pageRouter from "./routes/page.js";
+import expressEJSLayout from "express-ejs-layouts";
 
 // config env
 dotenv.config();
@@ -16,10 +16,13 @@ const app = express();
 // init support
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(expressEJSLayout);
+
+// set EJS support
+app.set("view engine", "ejs");
 
 // Routing
-app.use(devRouter);
-app.use(studentRouter);
+app.use(pageRouter);
 
 // static folder
 app.use(express.static("public"));
